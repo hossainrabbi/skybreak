@@ -1,0 +1,31 @@
+{
+  "name": "skybreak",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SKYBREAK — 3D Online Multiplayer Floating Island Obstacle Racing Game (Next.js + Three.js + Socket.IO)",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "node server.js --prod",
+    "typecheck": "node scripts/typecheck.js",
+    "test": "node scripts/run-tests.js"
+  },
+  "dependencies": {
+    "next": "^15.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.170.0",
+    "typescript": "^5.7.2"
+  }
+}
