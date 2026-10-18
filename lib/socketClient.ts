@@ -6,6 +6,10 @@ let sharedSocket: Socket | null = null;
 let currentServerUrl = '';
 let serverTimeOffsetMs = 0;
 
+const ENV_SOCKET_URL = (process.env.NEXT_PUBLIC_SOCKET_URL || '')
+  .trim()
+  .replace(/\/+$/, '');
+
 export function getOrCreatePlayerToken(): string {
   if (typeof window === 'undefined') return 'server-token';
   const key = 'skybreak_player_token_v1';
@@ -22,8 +26,8 @@ export function getOrCreatePlayerToken(): string {
 }
 
 export function getSavedServerUrl(): string {
-  if (typeof window === 'undefined') return '';
-  return window.localStorage.getItem('skybreak_server_url') || '';
+  if (typeof window === 'undefined') return ENV_SOCKET_URL;
+  return window.localStorage.getItem('skybreak_server_url') || ENV_SOCKET_URL;
 }
 
 export function setCustomServerUrl(url: string): Socket {
@@ -45,7 +49,7 @@ export function setCustomServerUrl(url: string): Socket {
 
 export function getSocket(): Socket {
   if (!sharedSocket) {
-    const targetUrl = currentServerUrl || getSavedServerUrl();
+    const targetUrl = currentServerUrl || getSavedServerUrl() || ENV_SOCKET_URL;
     currentServerUrl = targetUrl;
 
     sharedSocket = targetUrl
@@ -53,7 +57,7 @@ export function getSocket(): Socket {
           path: '/socket.io',
           transports: ['websocket', 'polling'],
           reconnection: true,
-          reconnectionAttempts: 15,
+          reconnectionAttempts: 20,
           reconnectionDelay: 800,
           reconnectionDelayMax: 5000,
         })
@@ -61,7 +65,7 @@ export function getSocket(): Socket {
           path: '/socket.io',
           transports: ['websocket', 'polling'],
           reconnection: true,
-          reconnectionAttempts: 15,
+          reconnectionAttempts: 20,
           reconnectionDelay: 800,
           reconnectionDelayMax: 5000,
         });

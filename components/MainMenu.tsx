@@ -189,9 +189,9 @@ export default function MainMenu({
           </div>
           <div className="controls-col">
             <strong>📱 Phone &amp; Tablet Controls</strong>
-            <span>Move: Left Joystick or D-Pad (▲ ▼ ◀ ▶)</span>
-            <span>Jump &amp; Sprint: Right Touch Action Bar</span>
-            <span>Camera: Swipe Screen or Cam ⟲ / ⟳ Buttons</span>
+            <span>Move: Left Virtual Thumb Joystick</span>
+            <span>Jump &amp; Sprint: Right Touch Buttons</span>
+            <span>Camera: Swipe Screen • Settings: Top ⚙️ Button</span>
           </div>
         </div>
       </div>
