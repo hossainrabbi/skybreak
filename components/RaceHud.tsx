@@ -29,15 +29,14 @@ interface RaceHudProps {
 }
 
 export function formatRaceTime(ms: number | null): string {
-  if (ms === null || !Number.isFinite(ms) || ms < 0) return '00:00.00';
+  if (ms === null || !Number.isFinite(ms) || ms < 0) return '00:00';
   const totalSeconds = Math.floor(ms / 1000);
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  const centis = Math.floor((ms % 1000) / 10);
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
     2,
     '0'
-  )}.${String(centis).padStart(2, '0')}`;
+  )}`;
 }
 
 export default function RaceHud({
@@ -69,9 +68,11 @@ export default function RaceHud({
     if (room.status !== 'racing' || !room.raceStartTime) {
       return;
     }
-    const interval = setInterval(() => {
+    const updateTimer = () => {
       setElapsedMs(Math.max(0, getSynchronizedNow() - (room.raceStartTime || 0)));
-    }, 50);
+    };
+    updateTimer();
+    const interval = setInterval(updateTimer, 250);
     return () => clearInterval(interval);
   }, [room.status, room.raceStartTime]);
 
